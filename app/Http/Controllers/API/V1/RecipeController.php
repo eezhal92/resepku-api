@@ -40,6 +40,13 @@ class RecipeController extends Controller
         return response()->json($recipes);
     }
 
+    public function show($username, $recipeId)
+    {
+        $recipe = Recipe::with('user', 'categories')->findOrFail($recipeId);
+
+        return response()->json($recipe);
+    }
+
     public function store(Requests\API\V1\RecipeRequest $request, $username)
     {
         $recipe = $request->user()->recipes()->create([
