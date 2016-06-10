@@ -26,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        //
+        $gate->define('delete-recipe', function ($user, $recipe) {
+            return $user->id == $recipe->user_id;
+        });
     }
 }

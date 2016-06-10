@@ -1,16 +1,25 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+Route::group(['prefix' => '/api', 'middleware' => ['api']], function () {
 
-Route::get('/', function () {
-    return view('welcome');
+    Route::group(['prefix' => '/v1', 'namespace' => 'API\V1'], function () {
+
+        Route::get('recipes', 'RecipeController@index');
+
+        Route::get('/{username}/recipes', 'RecipeController@indexByUser');
+        
+        Route::post('/{username}/recipes', 'RecipeController@store')->middleware([
+            'auth.once', 'json',
+        ]);
+
+        Route::patch('/{username}/recipes/{id}', 'RecipeController@update')->middleware([
+            'auth.once', 'json',
+        ]);
+
+        Route::delete('/{username}/recipes/{id}', 'RecipeController@destroy')->middleware([
+            'auth.once', 'json',
+        ]);
+
+    });
+
 });
