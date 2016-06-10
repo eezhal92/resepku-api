@@ -30,7 +30,7 @@ class Recipe extends Model
 
     public function scopeOfCategories($query, $categoryIds)
     {
-        return $query->with('categories')
+        return $query->with('user', 'categories')
                      ->join('category_recipe', 'recipes.id', '=', 'category_recipe.recipe_id')
                      ->join('categories', 'category_recipe.category_id', '=', 'categories.id')
                      ->select('recipes.*')

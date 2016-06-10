@@ -19,7 +19,7 @@ class RecipeController extends Controller
 
             $recipes = Recipe::ofCategories($categories)->paginate(20);
         } else {
-            $recipes = Recipe::paginate(10);
+            $recipes = Recipe::with('user', 'categories')->paginate(10);
         }
 
         return response()->json($recipes);
@@ -34,7 +34,7 @@ class RecipeController extends Controller
 
             $recipes = $user->recipes()->ofCategories($categories)->get();
         } else {
-            $recipes = $user->recipes()->paginate(10);
+            $recipes = $user->recipes()->with('user', 'categories')->paginate(10);
         }
         
         return response()->json($recipes);
