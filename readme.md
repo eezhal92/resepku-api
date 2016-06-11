@@ -15,7 +15,7 @@ Mendapatkan semua data resep.
 **Parameter/Query String**
 
 Param | Nilai | Deskripsi
------------- | ------------- | 
+------------ | ------------- | -------------
 categories| string | id dari kategori yang ingin di filter. Contoh: 1,2
 
 **Contoh**
@@ -32,7 +32,7 @@ Mendapatkan resep dari user spesifik.
 **Parameter/Query String**
 
 Param | Nilai | Deskripsi
------------- | ------------- | 
+------------ | ------------- | -------------
 categories| string | id dari kategori yang ingin di filter. Contoh: 1,2
 
 **Contoh**
@@ -49,13 +49,15 @@ Mendapatkan resep spesifik
 
 **POST api/v1/{username}/recipes**
 
+> Butuh header Authorization Basic
+
 ```
 Membuat resep baru.
 ```
 **Parameter**
 
 Param | Nilai | Deskripsi
------------- | ------------- | 
+------------ | ------------- | -------------
 title | string | judul resep
 body | string | penjelasan resep
 categories | array | id dari kategori resep
@@ -64,13 +66,15 @@ categories | array | id dari kategori resep
 
 **PATCH api/v1/{username}/recipes/{recipe_id}**
 
+> Butuh header Authorization Basic
+
 ```
 Memperbarui resep.
 ```
 **Parameter**
 
 Param | Nilai | Deskripsi
------------- | ------------- | 
+------------ | ------------- | -------------
 title | string | judul resep
 body | string | penjelasan resep
 categories | array | id dari kategori resep
@@ -78,6 +82,8 @@ categories | array | id dari kategori resep
 <hr>
 
 **DELETE api/v1/{username}/recipes/{recipe_id}**
+
+> Butuh header Authorization Basic
 
 ```
 Menghapus resep.
