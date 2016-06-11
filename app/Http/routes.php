@@ -4,7 +4,9 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
 
     Route::group(['prefix' => '/v1', 'namespace' => 'API\V1'], function () {
 
-        Route::get('recipes', 'RecipeController@index');
+        Route::post('/account', 'AuthController@postRegister');
+
+        Route::get('/recipes', 'RecipeController@index');
 
         Route::get('/{username}/recipes', 'RecipeController@indexByUser');
 
