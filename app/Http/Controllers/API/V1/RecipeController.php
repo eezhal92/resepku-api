@@ -31,14 +31,14 @@ class RecipeController extends Controller
         return response()->json($recipes->paginate(20));
     }
 
-    public function show($username, $recipeId)
+    public function show($recipeId)
     {
         $recipe = Recipe::with('user', 'categories')->findOrFail($recipeId);
 
         return response()->json($recipe);
     }
 
-    public function store(Requests\API\V1\RecipeRequest $request, $username)
+    public function store(Requests\API\V1\RecipeRequest $request)
     {
         $recipe = $request->user()->recipes()->create([
             'title' => $request->get('title'),
@@ -52,7 +52,7 @@ class RecipeController extends Controller
         return response()->json($recipe, 201);
     }
 
-    public function update(Requests\API\V1\RecipeRequest $request, $username, $recipeId)
+    public function update(Requests\API\V1\RecipeRequest $request, $recipeId)
     {
         $recipe = Recipe::findOrFail($recipeId);
         $recipe->update([
@@ -67,28 +67,13 @@ class RecipeController extends Controller
         return response()->json($recipe, 200);
     }
 
-    public function destroy($username, $recipeId)
+    public function destroy($recipeId)
     {
         try {
-            $user = User::where('username', $username)->firstOrFail();
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'message' => "User with username `{$username}` not found"
-            ], 404);
-        }
-
-        try {
             $recipe = Recipe::findOrFail($recipeId);
-            if ($user->id !== $recipe->user_id) {
-                throw new Exception;
-            }
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'message' => "Recipe with id `{$recipeId}` not found"],
-            404);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => "Recipe with id `{$recipeId}` not related to User with username `{$username}`"],
             404);
         }
         

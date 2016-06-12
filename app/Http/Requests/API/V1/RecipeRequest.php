@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\API\V1;
 
+use App\Recipe;
 use App\Http\Requests\Request;
 
 class RecipeRequest extends Request
@@ -13,7 +14,13 @@ class RecipeRequest extends Request
      */
     public function authorize()
     {
-        return auth()->user()->username == $this->route('username');
+        if (request()->method() == 'POST') {
+            return true;
+        }
+
+        $recipe = Recipe::findOrFail($this->route('id'));
+
+        return request()->user()->id == $recipe->user_id;
     }
 
     /**

@@ -8,17 +8,17 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
 
         Route::get('/recipes', 'RecipeController@index');
 
-        Route::get('/{username}/recipes/{id}', 'RecipeController@show');
+        Route::get('/recipes/{id}', 'RecipeController@show');
         
-        Route::post('/{username}/recipes', 'RecipeController@store')->middleware([
+        Route::post('/recipes', 'RecipeController@store')->middleware([
             'auth.once', 'json',
         ]);
 
-        Route::patch('/{username}/recipes/{id}', 'RecipeController@update')->middleware([
+        Route::patch('/recipes/{id}', 'RecipeController@update')->middleware([
             'auth.once', 'json',
         ]);
 
-        Route::delete('/{username}/recipes/{id}', 'RecipeController@destroy')->middleware([
+        Route::delete('/recipes/{id}', 'RecipeController@destroy')->middleware([
             'auth.once', 'json',
         ]);
 
