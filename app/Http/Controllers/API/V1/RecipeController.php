@@ -8,7 +8,6 @@ use App\User;
 use App\Recipe;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RecipeController extends Controller
 {
@@ -67,18 +66,10 @@ class RecipeController extends Controller
         return response()->json($recipe, 200);
     }
 
-    public function destroy($recipeId)
+    public function destroy(Requests\API\V1\DeleteRecipeRequest $request, $recipeId)
     {
-        try {
-            $recipe = Recipe::findOrFail($recipeId);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'message' => "Recipe with id `{$recipeId}` not found"],
-            404);
-        }
-        
-        $this->authorize('delete-recipe', $recipe);
-        
+        $recipe = Recipe::findOrFail($recipeId);
+
         $recipe->categories()->delete();
 
         if ($recipe->delete()) {
