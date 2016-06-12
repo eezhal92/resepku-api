@@ -17,6 +17,7 @@ Mendapatkan semua data resep.
 Param | Nilai | Deskripsi
 ------------ | ------------- | -------------
 categories| string | id dari kategori yang ingin di filter. Contoh: 1,2
+user_id| integer | filter hasil berdasarkan user
 
 **Contoh**
 
@@ -24,21 +25,6 @@ categories| string | id dari kategori yang ingin di filter. Contoh: 1,2
 
 <hr>
 
-**GET /api/v1/{username}/recipes**
-
-```
-Mendapatkan resep dari user spesifik.
-```
-**Parameter/Query String**
-
-Param | Nilai | Deskripsi
------------- | ------------- | -------------
-categories| string | id dari kategori yang ingin di filter. Contoh: 1,2
-
-**Contoh**
-
-`GET /api/johndoe/recipes?categories=1,2`
-<hr>
 **GET api/v1/{username}/recipes/{recipe_id}**
 
 ```

@@ -28,13 +28,27 @@ class Recipe extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    /**
+     * Query recipe for certain categories.
+     *
+     * @return QueryBuilder
+     */
     public function scopeOfCategories($query, $categoryIds)
     {
-        return $query->with('user', 'categories')
-                     ->join('category_recipe', 'recipes.id', '=', 'category_recipe.recipe_id')
+        return $query->join('category_recipe', 'recipes.id', '=', 'category_recipe.recipe_id')
                      ->join('categories', 'category_recipe.category_id', '=', 'categories.id')
                      ->select('recipes.*')
                      ->groupBy('recipes.id')
                      ->whereIn('categories.id', $categoryIds);
+    }
+
+    /**
+     * Query recipe for spesific user.
+     *
+     * @return QueryBuilder
+     */
+    public function scopeOfUser($query, $userId)
+    {
+        return $query->where('user_id', $userId);
     }
 }

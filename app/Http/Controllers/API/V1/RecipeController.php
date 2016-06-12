@@ -14,30 +14,21 @@ class RecipeController extends Controller
 {
     public function index()
     {
-        if (request()->has('categories')) {
-            $categories = explode(',', request()->get('categories'));
+        $queryStrings = request()->intersect('categories', 'user_id');
 
-            $recipes = Recipe::ofCategories($categories)->paginate(20);
-        } else {
-            $recipes = Recipe::with('user', 'categories')->paginate(10);
-        }
-
-        return response()->json($recipes);
-    }
-
-    public function indexByUser($username)
-    {
-        $user = User::where('username', $username)->firstOrFail();
+        $recipes = Recipe::with('user', 'categories');
 
         if (request()->has('categories')) {
-            $categories = explode(',', request()->get('categories'));
+            $categories = explode(',', $queryStrings['categories']);
 
-            $recipes = $user->recipes()->ofCategories($categories)->get();
-        } else {
-            $recipes = $user->recipes()->with('user', 'categories')->paginate(10);
+            $recipes->ofCategories($categories);
         }
-        
-        return response()->json($recipes);
+
+        if (request()->has('user_id')) {
+            $recipes->ofUser($queryStrings['user_id']);
+        }
+
+        return response()->json($recipes->paginate(20));
     }
 
     public function show($username, $recipeId)
