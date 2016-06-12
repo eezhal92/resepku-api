@@ -88,3 +88,18 @@ categories | array | id dari kategori resep
 ```
 Menghapus resep.
 ```
+
+<hr>
+
+**POST api/v1/accounts**
+
+```
+Membuat user baru.
+```
+**Parameter**
+
+Param | Nilai | Deskripsi
+------------ | ------------- | -------------
+name | string | nama user
+email | string | email user
+password | string | password user
