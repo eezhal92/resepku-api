@@ -22,7 +22,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
         ]);
     }
 
@@ -48,9 +48,10 @@ class AuthController extends Controller
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
+            return response()->json([
+                'message' => 'Request parameter not valid',
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
         $user = $this->create($request->all());
