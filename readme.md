@@ -25,7 +25,7 @@ user_id| integer | filter hasil berdasarkan user
 
 <hr>
 
-**GET api/v1/{username}/recipes/{recipe_id}**
+**GET api/v1/recipes/{recipe_id}**
 
 ```
 Mendapatkan resep spesifik
@@ -33,7 +33,7 @@ Mendapatkan resep spesifik
 
 <hr>
 
-**POST api/v1/{username}/recipes**
+**POST api/v1/recipes**
 
 > Butuh header Authorization Basic
 
@@ -50,7 +50,7 @@ categories | array | id dari kategori resep
 
 <hr>
 
-**PATCH api/v1/{username}/recipes/{recipe_id}**
+**PATCH api/v1/recipes/{recipe_id}**
 
 > Butuh header Authorization Basic
 
@@ -67,7 +67,7 @@ categories | array | id dari kategori resep
 
 <hr>
 
-**DELETE api/v1/{username}/recipes/{recipe_id}**
+**DELETE api/v1/recipes/{recipe_id}**
 
 > Butuh header Authorization Basic
 
