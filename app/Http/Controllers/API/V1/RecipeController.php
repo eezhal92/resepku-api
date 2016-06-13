@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
 
+use JWTAuth;
 use App\User;
 use App\Recipe;
 use App\Http\Requests;
@@ -39,7 +40,9 @@ class RecipeController extends Controller
 
     public function store(Requests\API\V1\RecipeRequest $request)
     {
-        $recipe = $request->user()->recipes()->create([
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $recipe = $user->recipes()->create([
             'title' => $request->get('title'),
             'slug' => str_slug($request->get('title')),
             'body' => $request->get('body'),            
