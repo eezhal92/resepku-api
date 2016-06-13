@@ -2,7 +2,20 @@
 
 > Dokumentasi web api versi 1
 
+
+
 ## Resources
+
+### Mendapatkan JWT Token
+
+**POST /api/v1/auth**
+
+Param | Nilai | Deskripsi
+------------ | ------------- | -------------
+email| string | email user
+password| string | password user
+
+<hr>
 
 ### 1. Recipes
 
@@ -35,7 +48,7 @@ Mendapatkan resep spesifik
 
 **POST api/v1/recipes**
 
-> Butuh header Authorization Basic
+> Butuh header Authorization Bearer {jwt_token}
 
 ```
 Membuat resep baru.
@@ -52,7 +65,7 @@ categories | array | id dari kategori resep
 
 **PATCH api/v1/recipes/{recipe_id}**
 
-> Butuh header Authorization Basic
+> Butuh header Authorization Bearer {jwt_token}
 
 ```
 Memperbarui resep.
@@ -69,7 +82,7 @@ categories | array | id dari kategori resep
 
 **DELETE api/v1/recipes/{recipe_id}**
 
-> Butuh header Authorization Basic
+> Butuh header Authorization Bearer {jwt_token}
 
 ```
 Menghapus resep.
