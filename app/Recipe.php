@@ -8,7 +8,7 @@ class Recipe extends Model
 {
     protected $fillable = ['title', 'sub_title', 'slug', 'body', 'image'];
 
-    protected $appends = ['loved_by'];
+    protected $appends = ['love'];
 
     /**
      * User relation.
@@ -74,13 +74,8 @@ class Recipe extends Model
         return $query->where('user_id', $userId);
     }
 
-    /**
-     * List of user that love this recipe.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getLovedByAttribute()
+    public function getLoveAttribute()
     {
-        return $this->lovedBy()->get();
+        return $this->lovedBy()->count();
     }
 }

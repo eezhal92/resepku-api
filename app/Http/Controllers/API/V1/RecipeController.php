@@ -34,7 +34,7 @@ class RecipeController extends Controller
 
     public function show($recipeId)
     {
-        $recipe = Recipe::with('user', 'categories')->findOrFail($recipeId);
+        $recipe = Recipe::with('user', 'lovedBy', 'categories')->findOrFail($recipeId);
 
         return response()->json($recipe);
     }
