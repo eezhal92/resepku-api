@@ -114,4 +114,23 @@ class RecipeController extends Controller
             'image' => $recipe->image,
         ]);
     }
+
+    public function loveRecipe(Request $request, $recipeId)
+    {
+        $recipe = Recipe::findOrFail($recipeId);
+
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if (! $user->isLoveRecipe($recipe)) {
+            $user->loves()->attach($recipe->id);
+
+            return response()->json([
+                'message' => "{$user->name} love {$recipe->title}",
+            ]);
+        }
+
+        return response()->json([
+            'message' => "{$user->name} already love {$recipe->title}",
+        ]);
+    }
 }

@@ -68,5 +68,19 @@ class User extends Authenticatable
     {
         return $this->loves()->get();
     }
+
+    /**
+     * Determine whether user already love recipe
+     *
+     * @param Recipe
+     * @return bool
+     */
+    public function isLoveRecipe($recipe)
+    {
+        return $this->loves()
+                    ->where('love.user_id', $this->id)
+                    ->where('love.recipe_id', $recipe->id)
+                    ->count() == 1 ? true : false;
+    }
 }
 

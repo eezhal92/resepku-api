@@ -22,6 +22,8 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
 
             Route::post('/recipes/{id}/image', 'RecipeController@postImage');
 
+            Route::post('/recipes/{id}/love', 'RecipeController@loveRecipe');
+
         });
 
         Route::get('/users', 'UserController@index');
