@@ -24,6 +24,8 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
 
             Route::post('/recipes/{id}/love', 'RecipeController@loveRecipe');
 
+            Route::delete('/recipes/{id}/love', 'RecipeController@unLoveRecipe');
+
         });
 
         Route::get('/users', 'UserController@index');

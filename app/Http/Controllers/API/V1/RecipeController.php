@@ -133,4 +133,19 @@ class RecipeController extends Controller
             'message' => "{$user->name} already love {$recipe->title}",
         ]);
     }
+
+    public function unLoveRecipe(Request $request, $recipeId)
+    {
+        $recipe = Recipe::findOrFail($recipeId);
+
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user->isLoveRecipe($recipe)) {
+            $user->loves()->detach($recipe->id);
+        }
+
+        return response()->json([
+            'message' => "{$user->name} don't love {$recipe->title}",
+        ]);
+    }
 }
