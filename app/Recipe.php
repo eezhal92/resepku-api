@@ -29,6 +29,16 @@ class Recipe extends Model
     }
 
     /**
+     * Comments relation.
+     *
+     * @return HasManyRelation
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * Query recipe for certain categories.
      *
      * @return QueryBuilder
