@@ -106,6 +106,26 @@ image | file |
 
 <hr>
 
+**POST api/v1/recipes/{recipe_id}/love**
+
+> Butuh header Authorization Bearer {jwt_token}
+
+```
+User menyukai resep.
+```
+
+<hr>
+
+**DELETE api/v1/recipes/{recipe_id}/love**
+
+> Butuh header Authorization Bearer {jwt_token}
+
+```
+User menghapus suka dari resep.
+```
+
+<hr>
+
 ### 2. Users
 
 **POST api/v1/accounts**
