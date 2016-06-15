@@ -8,6 +8,8 @@ class Recipe extends Model
 {
     protected $fillable = ['title', 'sub_title', 'slug', 'body', 'image'];
 
+    protected $appends = ['loved_by'];
+
     /**
      * User relation.
      *
@@ -38,6 +40,16 @@ class Recipe extends Model
         return $this->hasMany(Comment::class);
     }
 
+     /**
+     * Recipe loved by user relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function lovedBy()
+    {
+        return $this->belongsToMany(User::class, 'love');
+    }
+
     /**
      * Query recipe for certain categories.
      *
@@ -60,5 +72,15 @@ class Recipe extends Model
     public function scopeOfUser($query, $userId)
     {
         return $query->where('user_id', $userId);
+    }
+
+    /**
+     * List of user that love this recipe.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getLovedByAttribute()
+    {
+        return $this->lovedBy()->get();
     }
 }

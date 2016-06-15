@@ -35,7 +35,18 @@ class User extends Authenticatable
      */
     public function recipes()
     {
-        return $this->hasMany(Recipe::class);
+        return $this->hasMany(Recipe::class, 'love');
+    }
+
+
+    /**
+     * User love recipe relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function loves()
+    {
+        return $this->belongsToMany(Recipe::class, 'love');
     }
 
     /**
@@ -46,6 +57,16 @@ class User extends Authenticatable
     public function getRecipeCountAttribute()
     {
         return $this->recipes()->count();
+    }
+
+    /**
+     * Recipe count virtual attribute.
+     *
+     * @return HasManyRelation
+     */
+    public function getLovesAttribute()
+    {
+        return $this->loves()->get();
     }
 }
 
