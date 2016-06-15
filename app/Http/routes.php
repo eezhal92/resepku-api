@@ -24,6 +24,8 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
 
         });
 
+        Route::get('/users', 'UserController@index');
+
     });
 
 });

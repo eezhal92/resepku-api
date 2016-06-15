@@ -15,6 +15,10 @@ class User extends Authenticatable
         'name', 'email', 'password', 'username',
     ];
 
+    protected $appends = [
+        'recipe_count'
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -32,6 +36,16 @@ class User extends Authenticatable
     public function recipes()
     {
         return $this->hasMany(Recipe::class);
+    }
+
+    /**
+     * Recipe count virtual attribute.
+     *
+     * @return HasManyRelation
+     */
+    public function getRecipeCountAttribute()
+    {
+        return $this->recipes()->count();
     }
 }
 
