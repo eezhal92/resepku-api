@@ -132,3 +132,40 @@ Mendapatkan data user.
 Param | Nilai | Deskripsi
 ------------ | ------------- | -------------
 page | integer |
+
+### 2. Comments
+
+**GET api/v1/recipes/{recipe_id}/comments**
+
+```
+Mengambil komentar dari resep spesifik.
+```
+
+**Parameter**
+
+Param | Nilai | Deskripsi
+------------ | ------------- | -------------
+page | integer |
+
+**POST api/v1/recipes/{recipe_id}/comments**
+
+> Butuh header Authorization Bearer {jwt_token}
+
+```
+Menyimpan komentar untuk resep spesifik.
+```
+
+**Parameter**
+
+Param | Nilai | Deskripsi
+------------ | ------------- | -------------
+body | string | isi komentar
+title | string | judul komentar. optional
+
+**DELETE api/v1/recipes/{recipe_id}/comments/{comment_id}**
+
+> Butuh header Authorization Bearer {jwt_token}
+
+```
+Menghapus komentar spesifik dari sebuah resep.
+```
