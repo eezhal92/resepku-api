@@ -90,11 +90,30 @@ Menghapus resep.
 
 <hr>
 
+**POST api/v1/recipes/{recipe_id}/image**
+
+> Butuh header Authorization Bearer {jwt_token}
+
+```
+Set gambar resep.
+```
+
+**Parameter**
+
+Param | Nilai | Deskripsi
+------------ | ------------- | -------------
+image | file |
+
+<hr>
+
+### 2. Users
+
 **POST api/v1/accounts**
 
 ```
 Membuat user baru.
 ```
+
 **Parameter**
 
 Param | Nilai | Deskripsi
@@ -102,3 +121,14 @@ Param | Nilai | Deskripsi
 name | string | nama user
 email | string | email user
 password | string | password user
+
+**GET api/v1/users**
+
+```
+Mendapatkan data user.
+```
+**Parameter**
+
+Param | Nilai | Deskripsi
+------------ | ------------- | -------------
+page | integer |
