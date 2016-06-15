@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('delete-recipe', function ($user, $recipe) {
             return $user->id == $recipe->user_id;
         });
+
+        $gate->define('delete-comment', function ($user, $comment) {
+            return $user->id == $comment->user_id;
+        });
     }
 }

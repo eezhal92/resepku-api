@@ -27,7 +27,7 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
         Route::get('/users', 'UserController@index');
 
         Route::resource('recipes.comments', 'CommentController', [
-            'only' => ['index', 'store'],
+            'only' => ['index', 'store', 'destroy'],
         ]);
 
     });
