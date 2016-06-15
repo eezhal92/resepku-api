@@ -9,6 +9,7 @@ use App\Recipe;
 use App\Comment;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Tymon\JWTAuth\Middleware\GetUserFromToken;
 
 class CommentController extends Controller
 {
@@ -30,7 +31,7 @@ class CommentController extends Controller
             'only' => ['store', 'destroy'],
         ]);
 
-        $this->middleware('jwt.auth', [
+        $this->middleware(GetUserFromToken::class, [
             'only' => ['store', 'destroy'],
         ]);
     }
