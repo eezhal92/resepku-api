@@ -21,6 +21,18 @@ class CommentController extends Controller
     public function __construct()
     {
         $this->user = JWTAuth::parseToken()->authenticate();
+        $this->applyJsonAndJwtAuthMiddleware();
+    }
+
+    private function applyJsonAndJwtAuthMiddleware()
+    {
+        $this->middleware('json', [
+            'only' => ['store', 'destroy'],
+        ]);
+
+        $this->middleware('jwt.auth', [
+            'only' => ['store', 'destroy'],
+        ]);
     }
 
     public function index($recipeId)
