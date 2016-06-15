@@ -52,6 +52,12 @@ class Handler extends ExceptionHandler
                     'message' => 'Resource not found'
                 ], 404);
             }
+
+            if ($e instanceOf \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ]);
+            }
         }
 
         return parent::render($request, $e);

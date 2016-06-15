@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
 
+use Storage;
 use JWTAuth;
 use App\User;
 use App\Recipe;
@@ -43,9 +44,10 @@ class RecipeController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
 
         $recipe = $user->recipes()->create([
-            'title' => $request->get('title'),
-            'slug' => str_slug($request->get('title')),
-            'body' => $request->get('body'),            
+            'title'     => $request->get('title'),
+            'sub_title' => $request->get('sub_title'),
+            'slug'      => str_slug($request->get('title')),
+            'body'      => $request->get('body'),
         ]);
 
         $recipe->categories()->attach($request->get('categories'));
@@ -57,10 +59,12 @@ class RecipeController extends Controller
     public function update(Requests\API\V1\RecipeRequest $request, $recipeId)
     {
         $recipe = Recipe::findOrFail($recipeId);
+
         $recipe->update([
-            'title' => $request->get('title'),
-            'slug' => str_slug($request->get('title')),
-            'body' => $request->get('body'),            
+            'title'     => $request->get('title'),
+            'sub_title' => $request->get('sub_title'),
+            'slug'      => str_slug($request->get('title')),
+            'body'      => $request->get('body'),
         ]);
 
         $recipe->categories()->sync($request->get('categories'));
@@ -84,5 +88,30 @@ class RecipeController extends Controller
         return response()->json([
             'message' => "Cannot delete recipe with id `{$recipeId}`"
         ], 400);
+    }
+
+    public function postImage(Request $request, $recipeId)
+    {
+        $this->validate($request, [
+            'image' => 'required|image:jpg,png',
+        ]);
+
+        $recipe = Recipe::findOrFail($recipeId);
+
+        $image = $request->file('image');
+        $path = "/img/recipes/{$recipe->id}.{$image->getClientOriginalExtension()}";
+
+        Storage::disk('public')->put(
+            $path,
+            file_get_contents($image->getRealPath())
+        );
+
+        $recipe->image = $path;
+        $recipe->save();
+
+        return response()->json([
+            'id' => $recipe->id,
+            'image' => $recipe->image,
+        ]);
     }
 }

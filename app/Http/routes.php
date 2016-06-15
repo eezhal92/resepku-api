@@ -20,6 +20,8 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
 
             Route::delete('/recipes/{id}', 'RecipeController@destroy');
 
+            Route::post('/recipes/{id}/image', 'RecipeController@postImage');
+
         });
 
     });

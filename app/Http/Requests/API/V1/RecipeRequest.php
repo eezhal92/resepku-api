@@ -51,6 +51,7 @@ class RecipeRequest extends Request
     {
         $rules = [
             'title'      => 'required|min:6',
+            'sub_title'  => 'required|min:6',
             'body'       => 'required|min:6',
             'categories' => 'required|array',
         ];
