@@ -122,6 +122,8 @@ name | string | nama user
 email | string | email user
 password | string | password user
 
+<hr>
+
 **GET api/v1/users**
 
 ```
@@ -133,7 +135,9 @@ Param | Nilai | Deskripsi
 ------------ | ------------- | -------------
 page | integer |
 
-### 2. Comments
+<hr>
+
+### 3. Comments
 
 **GET api/v1/recipes/{recipe_id}/comments**
 
@@ -146,6 +150,8 @@ Mengambil komentar dari resep spesifik.
 Param | Nilai | Deskripsi
 ------------ | ------------- | -------------
 page | integer |
+
+<hr>
 
 **POST api/v1/recipes/{recipe_id}/comments**
 
@@ -161,6 +167,8 @@ Param | Nilai | Deskripsi
 ------------ | ------------- | -------------
 body | string | isi komentar
 title | string | judul komentar. optional
+
+<hr>
 
 **DELETE api/v1/recipes/{recipe_id}/comments/{comment_id}**
 
