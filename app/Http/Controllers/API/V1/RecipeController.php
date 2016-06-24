@@ -29,7 +29,9 @@ class RecipeController extends Controller
             $recipes->ofUser($queryStrings['user_id']);
         }
 
-        return response()->json($recipes->paginate(20));
+        $perPage = request('limit', 20);
+
+        return response()->json($recipes->paginate($perPage));
     }
 
     public function show($recipeId)
