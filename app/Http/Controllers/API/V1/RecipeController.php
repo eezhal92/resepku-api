@@ -31,6 +31,8 @@ class RecipeController extends Controller
 
         $perPage = request('limit', 20);
 
+        dd(request()->header());
+
         return response()->json($recipes->paginate($perPage));
     }
 

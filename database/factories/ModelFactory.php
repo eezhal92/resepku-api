@@ -22,5 +22,6 @@ $factory->define(Recipe::class, function (Faker\Generator $faker) {
         'title' => $title,
         'slug' => str_slug($title),
         'body' => $faker->paragraphs(3, true),
+        'image' => $faker->imageUrl(640, 480),
     ];
 });

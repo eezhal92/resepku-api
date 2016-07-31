@@ -14,6 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('love')->delete();
+        DB::table('recipes')->delete();
+        DB::table('users')->delete();
+        DB::table('categories')->delete();
+
         $users = factory(User::class, 3)->create(['password' => bcrypt('password')]);
         $categories = collect(config('categories.default'))->map(function ($category) {
             return Category::create([
