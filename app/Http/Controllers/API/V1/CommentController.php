@@ -39,7 +39,7 @@ class CommentController extends Controller
     {
         $recipe = Recipe::findOrFail($recipeId);
 
-        return $recipe->comments()->paginate(10);
+        return $recipe->comments()->with('user', 'recipe')->paginate(10);
     }
 
     public function store(Request $request, $recipeId)
