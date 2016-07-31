@@ -28,6 +28,8 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
 
         });
 
+        Route::get('/categories', 'CategoryController@index');
+
         Route::get('/users', 'UserController@index');
 
         Route::resource('recipes.comments', 'CommentController', [

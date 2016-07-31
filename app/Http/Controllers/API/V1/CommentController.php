@@ -19,9 +19,8 @@ class CommentController extends Controller
      */
     private $user;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->user = JWTAuth::parseToken()->authenticate();
         $this->applyJsonAndJwtAuthMiddleware();
     }
 
@@ -45,6 +44,8 @@ class CommentController extends Controller
 
     public function store(Request $request, $recipeId)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
+
         $this->validate($request, [
             'body' => 'required|min:6',
         ]);
@@ -63,6 +64,8 @@ class CommentController extends Controller
 
     public function destroy($recipeId, $commentId)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
+
         $comment = Comment::where('recipe_id', $recipeId)
                          ->where('id', $commentId)
                          ->firstOrFail();
