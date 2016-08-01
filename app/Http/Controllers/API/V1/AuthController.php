@@ -106,4 +106,14 @@ class AuthController extends Controller
         // all good so return the token
         return response()->json(compact('token'));
     }
+
+    /**
+     * Get user data of token
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCurrentUser()
+    {
+        return JWTAuth::parseToken()->authenticate();
+    }
 }

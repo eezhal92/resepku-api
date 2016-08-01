@@ -8,6 +8,8 @@ Route::group(['prefix' => '/api', 'middleware' => ['api', 'cors']], function () 
 
         Route::post('/accounts', 'AuthController@postRegister');
 
+        Route::post('/accounts/me', 'AuthController@getCurrentUser');
+
         Route::get('/recipes', 'RecipeController@index');
 
         Route::get('/recipes/{id}', 'RecipeController@show');
