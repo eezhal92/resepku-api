@@ -2,13 +2,14 @@
 
 namespace App;
 
+use JWTAuth;
 use Illuminate\Database\Eloquent\Model;
 
 class Recipe extends Model
 {
     protected $fillable = ['title', 'sub_title', 'slug', 'body', 'image'];
 
-    protected $appends = ['love'];
+    protected $appends = ['love', 'loved_by_me'];
 
     /**
      * User relation.
@@ -77,5 +78,23 @@ class Recipe extends Model
     public function getLoveAttribute()
     {
         return $this->lovedBy()->count();
+    }
+
+    public function getLovedByMeAttribute()
+    {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+
+            $lovingUsers = $this->lovedBy()->get();
+            $idsOfUsersLoveThisRecipe = $lovingUsers->map(function ($user) {
+                return $user->id;
+            })->toArray();
+
+            return in_array($user->id, $idsOfUsersLoveThisRecipe);
+        } catch (\Exception $e) {
+
+        }
+
+        return false;
     }
 }
