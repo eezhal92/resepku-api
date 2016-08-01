@@ -59,6 +59,8 @@ class CommentController extends Controller
             'body'      => $request->body,
         ]);
 
+        $comment->load('user');
+
         return response()->json($comment, 201);
     }
 
